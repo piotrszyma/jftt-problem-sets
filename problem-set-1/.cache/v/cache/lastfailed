@@ -1,4 +1,0 @@
-{
-  "tests.py::MatcherTest::test_finds_pattern_properly": true,
-  "tests.py::test_finds_pattern_properly": true
-}

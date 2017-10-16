@@ -32,17 +32,19 @@ class PatternMatcher:
                 self.__matches.append(i - m + 1)
 
         if show_result:
-            print("\n{}".format(input_text))
-            underline = list(" " * n)
+            output = ("\n'{}' found {} times".format(self.__pattern, len(self.__matches)))
+            output += ("\n{}".format(input_text))
             for l in self.__matches:
-                underline[l] = "="
-            print("".join(underline).replace("=" + " " * (m - 1), "=" * m))
+                output += ("\n" + ("·" * l + input_text[l:l + m]).ljust(n, "·"))
+            print(output, end="")
         return self.__matches
 
     def __validate_init(self, pattern, alphabet):
         if not set(pattern).issubset(set(alphabet)):
-            raise ValueError("Pattern must be a subset of alphabet\nSigns in pattern not in alphabet: {}".format(set(pattern) - set(alphabet)))
+            raise ValueError("Pattern must be a subset of alphabet\nSigns in pattern not in alphabet: {}".format(
+                set(pattern) - set(alphabet)))
 
     def __validate_matcher(self, input_text):
         if not set(input_text).issubset(self.__alphabet):
-            raise ValueError("Input text must be a subset of alphabet\nSigns in input text not in alphabet: {}".format(set(input_text) - set(self.__alphabet)))
+            raise ValueError("Input text must be a subset of alphabet\nSigns in input text not in alphabet: {}".format(
+                set(input_text) - set(self.__alphabet)))

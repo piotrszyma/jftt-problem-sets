@@ -5,8 +5,9 @@ from matcher import PatternMatcher
 
 def main():
     if len(sys.argv) < 3:
-        print('Not enough parameters')
-        print('To run type: {} [alphabet] [pattern] [...text]'.format(sys.argv[0]))
+        output = 'Not enough parameters\n'
+        output += 'To run type: {} [alphabet] [pattern] [...text]'.format(sys.argv[0])
+        print(output)
         exit(1)
     _, alphabet, pattern, *strings = sys.argv
 
@@ -14,8 +15,9 @@ def main():
         print("Found duplicates in alphabet {}.\nRemoving duplicates.\n".format(alphabet))
         alphabet = "".join(set(alphabet))
 
-    print("Alphabet:\t{}".format(alphabet))
-    print("Pattern:\t{}".format(pattern))
+    output = ("Alphabet:\t{}\n".format(alphabet))
+    output += ("Pattern:\t{}".format(pattern))
+    print(output)
 
     try:
         pm = PatternMatcher(
@@ -23,16 +25,14 @@ def main():
             pattern=pattern
         )
     except ValueError as e:
-        print("\nError for pattern matcher construction! Aborting program")
-        print("{}\n".format(e))
+        print("\nError for pattern matcher construction! Aborting program\n{}\n".format(e))
         exit(1)
 
     for text in strings:
         try:
             pm.matcher(input_text=text, show_result=True)
         except ValueError as e:
-            print("\nError for input text {}".format(text))
-            print("{}\n".format(e))
+            print("\nError for input text {}\n{}\n".format(text, e))
     exit(0)
 
 

@@ -1,7 +1,8 @@
 class PatternMatcher:
     def __init__(self, pattern, alphabet):
+        self.__validate_init(pattern, alphabet)
         self.__pattern = pattern
-        self.__alphabet = list(alphabet)
+        self.__alphabet = set(alphabet)
         self.__transition_func = None
         self.__matches = []
         self.__compute_transition_func()
@@ -20,6 +21,7 @@ class PatternMatcher:
                 self.__transition_func[q][a] = k
 
     def matcher(self, input_text, show_result=False):
+        self.__validate_matcher(input_text)
         self.__matches = []
         n = len(input_text)
         m = len(self.__pattern)
@@ -30,13 +32,17 @@ class PatternMatcher:
                 self.__matches.append(i - m + 1)
 
         if show_result:
-            print(input_text)
-
-            for i in range(0, n):
-                if i in self.__matches:
-                    print("=" * m, end="")
-                    i += m - 1
-                else:
-                    print(" ", end="")
-
+            print("\n{}".format(input_text))
+            underline = list(" " * n)
+            for l in self.__matches:
+                underline[l] = "="
+            print("".join(underline).replace("=" + " " * (m - 1), "=" * m))
         return self.__matches
+
+    def __validate_init(self, pattern, alphabet):
+        if not set(pattern).issubset(set(alphabet)):
+            raise ValueError("Pattern must be a subset of alphabet\nSigns in pattern not in alphabet: {}".format(set(pattern) - set(alphabet)))
+
+    def __validate_matcher(self, input_text):
+        if not set(input_text).issubset(self.__alphabet):
+            raise ValueError("Input text must be a subset of alphabet\nSigns in input text not in alphabet: {}".format(set(input_text) - set(self.__alphabet)))

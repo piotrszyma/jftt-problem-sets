@@ -43,3 +43,19 @@ class MatcherTest(unittest.TestCase):
         self.assertEqual(pm.matcher("aaaa"), [0, 1, 2, 3])
         self.assertEqual(pm.matcher("bcdd"), [])
 
+    def test_should_refuse_pattern_not_in_alphabet(self):
+        with self.assertRaises(ValueError):
+            PatternMatcher(
+                pattern="ab",
+                alphabet="123"
+            )
+
+    def test_should_raise_exception_if_match_str_not_in_alphabet(self):
+        pm = PatternMatcher(
+            pattern="ab",
+            alphabet="abc"
+        )
+        with self.assertRaises(ValueError):
+            pm.matcher("123")
+
+

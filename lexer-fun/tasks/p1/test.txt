@@ -1,0 +1,18 @@
+pierwsza                     linia
+    <biale znaki
+biale znaki>      
+
+
+
+^puste
+jedna za> 
+tu w srodku sa				taby
+taby i  	 	 	 	  	 	     spacje
+spacje            tu
+\/ puste
+   
+    
+                    
+
+
+koniec

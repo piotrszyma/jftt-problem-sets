@@ -62,6 +62,8 @@ int yylex();
 int yywrap();
 
 int UNKNOWN = FALSE;
+int numberCtr = 0;
+int operatorCtr = 0;
 
 %}
 
@@ -69,36 +71,56 @@ int UNKNOWN = FALSE;
 digit (-){0,1}[0-9]+
 
 %%
-{digit}                       push(atoi(yytext)) ;
-"+"                           push(pop() + pop());
-"-"                           {
-                                //TODO: make it work better
-                                int fNumber = pop();
-                                push(pop() - fNumber);
-                              };
-"*"                           push(pop() * pop());
-"%"                           {
+{digit}     {
+                 push(atoi(yytext));
+                 numberCtr++;
+            }
+"+"         {
+                push(pop() + pop());
+                operatorCtr++;
+            }
+"-"         {
+                //TODO: make it work better
+                int fNumber = pop();
+                push(pop() - fNumber);
+                operatorCtr++;
+            }
+"*"         {
+                operatorCtr++;
+                push(pop() * pop());
+            }
+"%"         {
 
-                                int fNumber = pop();
-                                push(pop() % fNumber);
-                              };
-"/"                           {
-
-                                int fNumber = pop();
-                                int sNumber = pop();
-                                printf("%d / %d = %d", fNumber, sNumber, fNumber / sNumber)
-                                push(fNumber / fNumber);
-                              };
-" "                                                 ;
-.                              {
-                                    UNKNOWN = TRUE
-                                    printf("Error: unknown symbol \"%s\""\n, yytext);
-                                };
+                int fNumber = pop();
+                push(pop() % fNumber);
+                operatorCtr++;
+            }
+"/"         {
+                operatorCtr++;
+                int fNumber = pop();
+                push(pop() / fNumber);
+            }
+"^"         {
+                operatorCtr++;
+                int fNumber = pop();
+                push(pow(pop(),  fNumber));
+            }
+" "        ;
+.           {
+                printf("\nError: unknown symbol \"%s\"", yytext);
+                UNKNOWN = TRUE;
+            }
 %%
 
 int yywrap() {
-    if(UNKNOWN == FALSE) {
-        printf("= %d", pop());
+    if(UNKNOWN == TRUE) {
+        return 1;
+    } else if(operatorCtr < numberCtr - 1) {
+        printf("Error: not enough operators\n");
+    } else if(numberCtr <= operatorCtr) {
+        printf("Error: not enough arguments\n");
+    } else if(UNKNOWN == FALSE) {
+        printf("= %d\n", pop());
     }
     return 1;
 }

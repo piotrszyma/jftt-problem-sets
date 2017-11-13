@@ -360,8 +360,8 @@ static void yynoreturn yy_fatal_error (yyconst char* msg  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 9
-#define YY_END_OF_BUFFER 10
+#define YY_NUM_RULES 10
+#define YY_END_OF_BUFFER 11
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -369,10 +369,10 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static yyconst flex_int16_t yy_accept[15] =
+static yyconst flex_int16_t yy_accept[16] =
     {   0,
-        0,    0,   10,    8,    9,    7,    5,    4,    2,    3,
-        6,    1,    1,    0
+        0,    0,   11,    9,   10,    8,    5,    4,    2,    3,
+        6,    1,    7,    1,    0
     } ;
 
 static yyconst YY_CHAR yy_ec[256] =
@@ -386,7 +386,7 @@ static yyconst YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,   10,    1,    1,    1,    1,    1,    1,
 
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -407,35 +407,35 @@ static yyconst YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst YY_CHAR yy_meta[10] =
+static yyconst YY_CHAR yy_meta[11] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    1
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1
     } ;
 
-static yyconst flex_uint16_t yy_base[15] =
+static yyconst flex_uint16_t yy_base[16] =
     {   0,
-        0,    0,   13,   14,   14,   14,   14,   14,   14,    3,
-       14,    2,    1,   14
+        0,    0,   14,   15,   15,   15,   15,   15,   15,    4,
+       15,    3,   15,    2,   15
     } ;
 
-static yyconst flex_int16_t yy_def[15] =
+static yyconst flex_int16_t yy_def[16] =
     {   0,
-       14,    1,   14,   14,   14,   14,   14,   14,   14,   14,
-       14,   14,   14,    0
+       15,    1,   15,   15,   15,   15,   15,   15,   15,   15,
+       15,   15,   15,   15,    0
     } ;
 
-static yyconst flex_uint16_t yy_nxt[24] =
+static yyconst flex_uint16_t yy_nxt[26] =
     {   0,
         4,    5,    6,    7,    8,    9,   10,   11,   12,   13,
-       13,   13,   14,    3,   14,   14,   14,   14,   14,   14,
-       14,   14,   14
+       14,   14,   14,   15,    3,   15,   15,   15,   15,   15,
+       15,   15,   15,   15,   15
     } ;
 
-static yyconst flex_int16_t yy_chk[24] =
+static yyconst flex_int16_t yy_chk[26] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,   13,
-       12,   10,    3,   14,   14,   14,   14,   14,   14,   14,
-       14,   14,   14
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+       14,   12,   10,    3,   15,   15,   15,   15,   15,   15,
+       15,   15,   15,   15,   15
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -516,8 +516,10 @@ int yylex();
 int yywrap();
 
 int UNKNOWN = FALSE;
+int numberCtr = 0;
+int operatorCtr = 0;
 
-#line 521 "lex.yy.c"
+#line 523 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -735,9 +737,9 @@ YY_DECL
 		}
 
 	{
-#line 71 "lexer.lex"
+#line 73 "lexer.lex"
 
-#line 741 "lex.yy.c"
+#line 743 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -764,13 +766,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 15 )
+				if ( yy_current_state >= 16 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (flex_int16_t) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 14 );
+		while ( yy_base[yy_current_state] != 15 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -796,67 +798,85 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 72 "lexer.lex"
-push(atoi(yytext)) ;
+#line 74 "lexer.lex"
+{
+                 push(atoi(yytext));
+                 numberCtr++;
+            }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 73 "lexer.lex"
-push(pop() + pop());
+#line 78 "lexer.lex"
+{
+                push(pop() + pop());
+                operatorCtr++;
+            }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 74 "lexer.lex"
+#line 82 "lexer.lex"
 {
-                                //TODO: make it work better
-                                int fNumber = pop();
-                                push(pop() - fNumber);
-                              }
+                //TODO: make it work better
+                int fNumber = pop();
+                push(pop() - fNumber);
+                operatorCtr++;
+            }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 79 "lexer.lex"
-push(pop() * pop());
+#line 88 "lexer.lex"
+{
+                operatorCtr++;
+                push(pop() * pop());
+            }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 80 "lexer.lex"
+#line 92 "lexer.lex"
 {
 
-                                int fNumber = pop();
-                                push(pop() % fNumber);
-                              }
+                int fNumber = pop();
+                push(pop() % fNumber);
+                operatorCtr++;
+            }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 85 "lexer.lex"
+#line 98 "lexer.lex"
 {
-
-                                int fNumber = pop();
-                                int sNumber = pop();
-                                printf("%d / %d = %d", fNumber, sNumber, fNumber / sNumber)
-                                push(fNumber / fNumber);
-                              }
+                operatorCtr++;
+                int fNumber = pop();
+                push(pop() / fNumber);
+            }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 92 "lexer.lex"
-;
+#line 103 "lexer.lex"
+{
+                operatorCtr++;
+                int fNumber = pop();
+                push(pow(pop(),  fNumber));
+            }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 93 "lexer.lex"
-{
-                                    UNKNOWN = TRUE
-                                    printf("Error: unknown symbol \"%s\""\n, yytext);
-                                }
+#line 108 "lexer.lex"
+;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 97 "lexer.lex"
+#line 109 "lexer.lex"
+{
+                printf("\nError: unknown symbol \"%s\"", yytext);
+                UNKNOWN = TRUE;
+            }
+	YY_BREAK
+case 10:
+YY_RULE_SETUP
+#line 113 "lexer.lex"
 ECHO;
 	YY_BREAK
-#line 860 "lex.yy.c"
+#line 880 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1149,7 +1169,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 15 )
+			if ( yy_current_state >= 16 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (flex_int16_t) yy_c];
@@ -1177,11 +1197,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 15 )
+		if ( yy_current_state >= 16 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (flex_int16_t) yy_c];
-	yy_is_jam = (yy_current_state == 14);
+	yy_is_jam = (yy_current_state == 15);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1857,13 +1877,19 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 97 "lexer.lex"
+#line 113 "lexer.lex"
 
 
 
 int yywrap() {
-    if(UNKNOWN == FALSE) {
-        printf("= %d", pop());
+    if(UNKNOWN == TRUE) {
+        return 1;
+    } else if(operatorCtr < numberCtr - 1) {
+        printf("Error: not enough operators\n");
+    } else if(numberCtr <= operatorCtr) {
+        printf("Error: not enough arguments\n");
+    } else if(UNKNOWN == FALSE) {
+        printf("= %d\n", pop());
     }
     return 1;
 }

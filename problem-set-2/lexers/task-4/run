@@ -1,0 +1,5 @@
+#!/bin/bash
+
+lex lexer.lex
+gcc lex.yy.c -o lexer.o -lfl -lm
+pytest ../../tests/test_fourth_solution.py

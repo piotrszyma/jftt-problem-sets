@@ -10,7 +10,11 @@
  */
 
 %{
+#define TRUE    1
+#define FALSE   0
+
 int lines, words = 0;
+int isEmpty = TRUE;
 int yylex();
 int yywrap();
 
@@ -21,16 +25,18 @@ TABSPACES [ \t]+
 WHITESYMBOLS [ \f\r\t\v]+
 %%
 {WORD}              {
+                        isEmpty = FALSE;
                         printf("%s", yytext);
                         words++;
                     };
-^{WHITESYMBOLS}                             ;
-{WHITESYMBOLS}$                             ;
-{TABSPACES}                      printf(" ");
-\n                                   lines++;
+^{WHITESYMBOLS}                            {isEmpty = FALSE; }
+{WHITESYMBOLS}$                            {isEmpty = FALSE; }
+{TABSPACES}                   {isEmpty = FALSE; printf(" "); }
+\n                                {isEmpty = FALSE; lines++; }
 %%
 
 int yywrap() {
+    if(lines == 0 & isEmpty == FALSE) lines = 1;
     printf("\n%d %d", lines, words);
     return 1;
 }

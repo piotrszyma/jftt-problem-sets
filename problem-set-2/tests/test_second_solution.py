@@ -38,6 +38,7 @@ int main(void) {
         self.assertEqual(response, expected_result)
 
         #
+
     def test_should_remove_multiline_comment(self):
         text = """#include <stdio.h>
 /* this is a multiline comment

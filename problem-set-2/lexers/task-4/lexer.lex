@@ -19,8 +19,6 @@
 
 // Stack implementation
 
-
-
 int stack[STACK_SIZE];
 int stackPtr = -1;
 
@@ -56,14 +54,35 @@ int pop() {
     }
 }
 
-// LEX initializer
-// a - b = -b + a
 int yylex();
-int yywrap();
 
 int UNKNOWN = FALSE;
 int numberCtr = 0;
 int operatorCtr = 0;
+
+int resetState() {
+    UNKNOWN = FALSE;
+    numberCtr = 0;
+    operatorCtr = 0;
+    stackPtr = -1;
+}
+
+int countSolution() {
+    if(UNKNOWN == TRUE) {
+        return 0;
+    } else if(operatorCtr < numberCtr - 1) {
+        printf("Error: not enough operators\n");
+    } else if(numberCtr <= operatorCtr) {
+        printf("Error: not enough arguments\n");
+    } else if(UNKNOWN == FALSE) {
+        printf("= %d\n", pop());
+    }
+
+    resetState();
+}
+
+
+
 
 %}
 
@@ -92,38 +111,38 @@ digit (-){0,1}[0-9]+
 "%"         {
 
                 int fNumber = pop();
-                push(pop() % fNumber);
-                operatorCtr++;
+                if (fNumber == 0) {
+                    printf("Error: cannot count modulo zero!\n");
+                    UNKNOWN = TRUE;
+                } else {
+                    push(pop() % fNumber);
+                    operatorCtr++;
+                }
             }
 "/"         {
                 operatorCtr++;
                 int fNumber = pop();
-                push(pop() / fNumber);
+                if (fNumber == 0) {
+                    printf("Error: division by zero!\n");
+                    UNKNOWN = TRUE;
+                } else {
+                    push(pop() / fNumber);
+                }
             }
 "^"         {
                 operatorCtr++;
                 int fNumber = pop();
                 push(pow(pop(),  fNumber));
             }
-" "        ;
+" "         ;
+\n			{
+                countSolution();
+            }
 .           {
-                printf("\nError: unknown symbol \"%s\"", yytext);
+                printf("Error: unknown symbol \"%s\"\n", yytext);
                 UNKNOWN = TRUE;
             }
 %%
-
-int yywrap() {
-    if(UNKNOWN == TRUE) {
-        return 1;
-    } else if(operatorCtr < numberCtr - 1) {
-        printf("Error: not enough operators\n");
-    } else if(numberCtr <= operatorCtr) {
-        printf("Error: not enough arguments\n");
-    } else if(UNKNOWN == FALSE) {
-        printf("= %d\n", pop());
-    }
-    return 1;
-}
 
 main()
 {

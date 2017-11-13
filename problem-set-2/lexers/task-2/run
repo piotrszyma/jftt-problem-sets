@@ -1,5 +1,6 @@
 #!/bin/bash
 
+rm lexer.o
 lex lexer.lex
 gcc lex.yy.c -o lexer.o -lfl
 pytest ../../tests/test_second_solution.py

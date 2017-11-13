@@ -14,7 +14,6 @@ int yylex();
 int yywrap();
 
 %}
-2
 START_COMMENT ^%.*\n
 COMMENT %.*\n
 ESCAPED \\%

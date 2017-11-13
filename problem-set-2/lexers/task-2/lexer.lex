@@ -16,13 +16,17 @@ MULTILINE_COMMENT_START "/*"
 %%
 
 {INLINE_COMMENT_START}             BEGIN(INLINE_COMMENT);
-<INLINE_COMMENT>.                                       ;
-<INLINE_COMMENT>\\\n                                    ;
-<INLINE_COMMENT>\n                              BEGIN(0);
+<INLINE_COMMENT>{
+                .                                       ;
+                \\\n                                    ;
+                \n                              BEGIN(0);
+}
 {MULTILINE_COMMENT_START}       BEGIN(MULTILINE_COMMENT);
-<MULTILINE_COMMENT>.                                    ;
-<MULTILINE_COMMENT>\n                                   ;
-<MULTILINE_COMMENT>("*/\n"|"*/")                BEGIN(0);
+<MULTILINE_COMMENT>{
+                .                                    ;
+                \n                                   ;
+                ("*/\n"|"*/")                BEGIN(0);
+}
 %%
 
 int yywrap() {

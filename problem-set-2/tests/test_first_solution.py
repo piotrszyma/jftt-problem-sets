@@ -62,3 +62,11 @@ class TestFirstSolution(LexerTestCase):
     def test_mixes(self):
         response = self.runParser("    aaa \t  x  \n   bbb \t\t   \naaaa \n")
         self.assertEqual(response, b'aaa xbbbaaaa\n3 4')
+
+    def test_empty(self):
+        response = self.runParser("")
+        self.assertEqual(response, b'\n0 0')
+
+    def test_not_empty(self):
+        response = self.runParser(" ")
+        self.assertEqual(response, b'\n1 0')

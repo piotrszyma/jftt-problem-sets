@@ -753,51 +753,55 @@ YY_RULE_SETUP
 #line 18 "lexer.lex"
 BEGIN(INLINE_COMMENT);
 	YY_BREAK
+
 case 2:
 YY_RULE_SETUP
-#line 19 "lexer.lex"
+#line 20 "lexer.lex"
 ;
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 20 "lexer.lex"
+#line 21 "lexer.lex"
 ;
 	YY_BREAK
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 21 "lexer.lex"
+#line 22 "lexer.lex"
 BEGIN(0);
 	YY_BREAK
+
 case 5:
 YY_RULE_SETUP
-#line 22 "lexer.lex"
+#line 24 "lexer.lex"
 BEGIN(MULTILINE_COMMENT);
 	YY_BREAK
+
 case 6:
 YY_RULE_SETUP
-#line 23 "lexer.lex"
+#line 26 "lexer.lex"
 ;
 	YY_BREAK
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 24 "lexer.lex"
+#line 27 "lexer.lex"
 ;
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 25 "lexer.lex"
+#line 28 "lexer.lex"
 BEGIN(0);
 	YY_BREAK
+
 case 9:
 YY_RULE_SETUP
-#line 26 "lexer.lex"
+#line 30 "lexer.lex"
 ECHO;
 	YY_BREAK
-#line 801 "lex.yy.c"
+#line 805 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(INLINE_COMMENT):
 case YY_STATE_EOF(MULTILINE_COMMENT):
@@ -1800,7 +1804,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 26 "lexer.lex"
+#line 30 "lexer.lex"
 
 
 

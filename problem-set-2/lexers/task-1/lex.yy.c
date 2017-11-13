@@ -464,11 +464,15 @@ char *yytext;
  *           What else could be included in this section?
  */
 #line 13 "lexer.lex"
+#define TRUE    1
+#define FALSE   0
+
 int lines, words = 0;
+int isEmpty = TRUE;
 int yylex();
 int yywrap();
 
-#line 472 "lex.yy.c"
+#line 476 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -689,9 +693,9 @@ YY_DECL
 		}
 
 	{
-#line 22 "lexer.lex"
+#line 26 "lexer.lex"
 
-#line 695 "lex.yy.c"
+#line 699 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -751,42 +755,43 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 23 "lexer.lex"
+#line 27 "lexer.lex"
 {
+                        isEmpty = FALSE;
                         printf("%s", yytext);
                         words++;
                     };
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 27 "lexer.lex"
-;
+#line 32 "lexer.lex"
+{isEmpty = FALSE; }
 	YY_BREAK
 case 3:
 *yy_cp = (yy_hold_char); /* undo effects of setting up yytext */
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 28 "lexer.lex"
-;
+#line 33 "lexer.lex"
+{isEmpty = FALSE; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 29 "lexer.lex"
-printf(" ");
+#line 34 "lexer.lex"
+{isEmpty = FALSE; printf(" "); }
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 30 "lexer.lex"
-lines++;
+#line 35 "lexer.lex"
+{isEmpty = FALSE; lines++; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 31 "lexer.lex"
+#line 36 "lexer.lex"
 ECHO;
 	YY_BREAK
-#line 790 "lex.yy.c"
+#line 795 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1790,11 +1795,12 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 31 "lexer.lex"
+#line 36 "lexer.lex"
 
 
 
 int yywrap() {
+    if(lines == 0 & isEmpty == FALSE) lines = 1;
     printf("\n%d %d", lines, words);
     return 1;
 }

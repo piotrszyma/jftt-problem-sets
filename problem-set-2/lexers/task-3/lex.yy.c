@@ -686,7 +686,7 @@ YY_DECL
 		}
 
 	{
-#line 22 "lexer.lex"
+#line 21 "lexer.lex"
 
 #line 692 "lex.yy.c"
 
@@ -748,29 +748,29 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 23 "lexer.lex"
+#line 22 "lexer.lex"
 ECHO;
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 24 "lexer.lex"
+#line 23 "lexer.lex"
 ;
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 25 "lexer.lex"
+#line 24 "lexer.lex"
 printf("\n");
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 26 "lexer.lex"
+#line 25 "lexer.lex"
 ECHO;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 28 "lexer.lex"
+#line 27 "lexer.lex"
 ECHO;
 	YY_BREAK
 #line 777 "lex.yy.c"
@@ -1777,7 +1777,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 28 "lexer.lex"
+#line 27 "lexer.lex"
 
 
 

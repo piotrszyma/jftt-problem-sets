@@ -360,8 +360,8 @@ static void yynoreturn yy_fatal_error (yyconst char* msg  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 10
-#define YY_END_OF_BUFFER 11
+#define YY_NUM_RULES 11
+#define YY_END_OF_BUFFER 12
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -371,7 +371,7 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[16] =
     {   0,
-        0,    0,   11,    9,   10,    8,    5,    4,    2,    3,
+        0,    0,   12,   10,    9,    8,    5,    4,    2,    3,
         6,    1,    7,    1,    0
     } ;
 
@@ -519,7 +519,31 @@ int UNKNOWN = FALSE;
 int numberCtr = 0;
 int operatorCtr = 0;
 
-#line 523 "lex.yy.c"
+int resetState() {
+    UNKNOWN = FALSE;
+    numberCtr = 0;
+    operatorCtr = 0;
+    stackPtr = -1;
+}
+
+int countSolution() {
+    if(UNKNOWN == TRUE) {
+        return 0;
+    } else if(operatorCtr < numberCtr - 1) {
+        printf("Error: not enough operators\n");
+    } else if(numberCtr <= operatorCtr) {
+        printf("Error: not enough arguments\n");
+    } else if(UNKNOWN == FALSE) {
+        printf("= %d\n", pop());
+    }
+
+    resetState();
+}
+
+
+
+
+#line 547 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -737,9 +761,9 @@ YY_DECL
 		}
 
 	{
-#line 73 "lexer.lex"
+#line 97 "lexer.lex"
 
-#line 743 "lex.yy.c"
+#line 767 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -798,7 +822,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 74 "lexer.lex"
+#line 98 "lexer.lex"
 {
                  push(atoi(yytext));
                  numberCtr++;
@@ -806,7 +830,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 78 "lexer.lex"
+#line 102 "lexer.lex"
 {
                 push(pop() + pop());
                 operatorCtr++;
@@ -814,7 +838,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 82 "lexer.lex"
+#line 106 "lexer.lex"
 {
                 //TODO: make it work better
                 int fNumber = pop();
@@ -824,7 +848,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 88 "lexer.lex"
+#line 112 "lexer.lex"
 {
                 operatorCtr++;
                 push(pop() * pop());
@@ -832,26 +856,36 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 92 "lexer.lex"
+#line 116 "lexer.lex"
 {
 
                 int fNumber = pop();
-                push(pop() % fNumber);
-                operatorCtr++;
+                if (fNumber == 0) {
+                    printf("Error: cannot count modulo zero!\n");
+                    UNKNOWN = TRUE;
+                } else {
+                    push(pop() % fNumber);
+                    operatorCtr++;
+                }
             }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 98 "lexer.lex"
+#line 127 "lexer.lex"
 {
                 operatorCtr++;
                 int fNumber = pop();
-                push(pop() / fNumber);
+                if (fNumber == 0) {
+                    printf("Error: division by zero!\n");
+                    UNKNOWN = TRUE;
+                } else {
+                    push(pop() / fNumber);
+                }
             }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 103 "lexer.lex"
+#line 137 "lexer.lex"
 {
                 operatorCtr++;
                 int fNumber = pop();
@@ -860,23 +894,31 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 108 "lexer.lex"
+#line 142 "lexer.lex"
 ;
 	YY_BREAK
 case 9:
+/* rule 9 can match eol */
 YY_RULE_SETUP
-#line 109 "lexer.lex"
+#line 143 "lexer.lex"
 {
-                printf("\nError: unknown symbol \"%s\"", yytext);
-                UNKNOWN = TRUE;
+                countSolution();
             }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 113 "lexer.lex"
+#line 146 "lexer.lex"
+{
+                printf("Error: unknown symbol \"%s\"\n", yytext);
+                UNKNOWN = TRUE;
+            }
+	YY_BREAK
+case 11:
+YY_RULE_SETUP
+#line 150 "lexer.lex"
 ECHO;
 	YY_BREAK
-#line 880 "lex.yy.c"
+#line 922 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1877,25 +1919,17 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 113 "lexer.lex"
+#line 150 "lexer.lex"
 
 
 
 int yywrap() {
-    if(UNKNOWN == TRUE) {
-        return 1;
-    } else if(operatorCtr < numberCtr - 1) {
-        printf("Error: not enough operators\n");
-    } else if(numberCtr <= operatorCtr) {
-        printf("Error: not enough arguments\n");
-    } else if(UNKNOWN == FALSE) {
-        printf("= %d\n", pop());
-    }
-    return 1;
+
 }
 
 main()
 {
+    //TODO: fix this
     return yylex();
 }
 

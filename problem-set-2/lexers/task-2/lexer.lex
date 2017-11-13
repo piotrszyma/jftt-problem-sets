@@ -9,70 +9,65 @@ int yywrap();
 
 %}
 
-INLINE_COMMENT_START [ \t]*"//"
-INLINE_COMMENT_START_AT_BEGINNING ^[ \t]*("//")
-MULTILINE_COMMENT_START [ \t]*"/*"
-MULTILINE_COMMENT_START_AT_BEGINNING ^[ \t]*("/*")
+STRING_START        "\""
+MUL_DOC_COM_START   ([ \t]*"/**"|^[ \t]*"/**")
+ONE_DOC_COM_START   ([ \t]*"///"|^[ \t]*"///")
 
-STRING_START "\""
+ONE_COM_START       ([ \t]*"//"|^[ \t]*"//")
 
-%x INLINE_COMMENT_FROM_BEGINNING
-%x INLINE_COMMENT
-%x MULTILINE_COMMENT
-%x MULTILINE_COMMENT_FROM_BEGINNING
 %x STRING
+%x MUL_DOC_COM
+%x ONE_DOC_COM
+%x ONE_COM
 %%
 
-{STRING_START}                  {
+{STRING_START} {
     printf("%s", yytext);
     BEGIN(STRING);
 }
 <STRING>{
     "\\\""                                  ECHO;
-    .                                       ECHO;
     \n                                      ECHO;
     "\""                                    {
                                                 printf("%s", yytext);
                                                 BEGIN(0);
                                             }
+    .                                       ECHO;
 }
 
-{INLINE_COMMENT_START_AT_BEGINNING}             BEGIN(INLINE_COMMENT_FROM_BEGINNING);
-<INLINE_COMMENT_FROM_BEGINNING>{
-                .                                      ;
-                \\n                                    ;
-                \n                              {
-                                                BEGIN(0);
-                                                }
+{MUL_DOC_COM_START} {
+    BEGIN(MUL_DOC_COM);
 }
 
-{INLINE_COMMENT_START}             BEGIN(INLINE_COMMENT);
-<INLINE_COMMENT>{
-                .                                       ;
-                \\n                                    ;
-                \n                              {
-                                                printf("\n");
-                                                BEGIN(0);
-                                                }
+<MUL_DOC_COM>{
+    "*/"[ \t]*$  BEGIN(0);
+    "*/"         BEGIN(0);
+    .   ;
+    \n  ;
 }
 
-{MULTILINE_COMMENT_START_AT_BEGINNING}      BEGIN(MULTILINE_COMMENT_FROM_BEGINNING);
-<MULTILINE_COMMENT_FROM_BEGINNING>{
-
-                .                                    ;
-                \n                                   ;
-                \".*\"                               ;
-                ("*/\n"|"*/")                BEGIN(0);
-
+{ONE_DOC_COM_START} {
+    BEGIN(ONE_DOC_COM);
 }
 
-{MULTILINE_COMMENT_START}       BEGIN(MULTILINE_COMMENT);
-<MULTILINE_COMMENT>{
-                .                                    ;
-                \n                                   ;
-                \".*\"                               ;
-                ("*/\n"|"*/")                BEGIN(0);
+<ONE_DOC_COM>{
+    "\\"[ \t]*\n         ;
+    .                   ;
+    \n              BEGIN(0);
 }
+
+{ONE_COM_START} {
+    BEGIN(ONE_COM);
+}
+
+<ONE_COM>{
+        "\\"[ \t]*\n         ;
+    .                   ;
+    \n              { ECHO; BEGIN(0); }
+}
+
+. ECHO;
+\n printf("\n");
 %%
 
 int yywrap() {

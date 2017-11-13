@@ -99,7 +99,6 @@ digit (-){0,1}[0-9]+
                 operatorCtr++;
             }
 "-"         {
-                //TODO: make it work better
                 int fNumber = pop();
                 push(pop() - fNumber);
                 operatorCtr++;

@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 
 /** Maly przyklad programu
  *
@@ -8,7 +8,7 @@
 // /*
 using namespace std;
 // */
-
+//this is a comment
 int main()
 {
   /// Komentarz dokumentacyjny \
@@ -22,7 +22,7 @@ int main()
   cout << "Poczatek komentarza /*" << endl; // ala
   cout << "Koniec komentarza */ "<< endl; // kot
   cout << "Komentarz /* ala */" << endl;
-  cout << "Komentarz2 /* ala */" /** ala */<< endl; //test
+  cout << "Komentarz2 /* ala */" /** ala */<< endl; ///test
     //a tu komentarz
   cout << "Komentarz // kot " << endl; //kot \
     / test \

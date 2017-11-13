@@ -6,14 +6,15 @@
 int lines, words = 0;
 int yylex();
 int yywrap();
+int DOCS = 0 ;
 
 %}
 
 STRING_START        "\""
 MUL_DOC_COM_START   [ \t]*"/**"
-ONE_DOC_COM_START   ([ \t]*"///"|^[ \t]*"///")
+ONE_DOC_COM_START   ([ \t]*"///")
 
-ONE_COM_START       ([ \t]*"//"|^[ \t]*"//")
+ONE_COM_START       ([ \t]*"//")
 MUL_COM_START       [ \t]*"/*"
 
 %x STRING
@@ -39,22 +40,30 @@ MUL_COM_START       [ \t]*"/*"
 
 {MUL_DOC_COM_START} {
     BEGIN(MUL_DOC_COM);
+    if(DOCS) { printf("%s", yytext); }
 }
 
 <MUL_DOC_COM>{
-    "*/"[ \t]*$  BEGIN(0);
-    "*/"         BEGIN(0);
-    .   ;
-    \n  ;
+    "*/"[ \t]*$  {
+                    BEGIN(0);
+                    if(DOCS) { printf("%s", yytext); }
+                 };
+    "*/"         {
+                    BEGIN(0);
+                    if(DOCS) { printf("%s", yytext); }
+                 };
+    .           { if(DOCS) { printf("%s", yytext); } };
+    \n          { if(DOCS) { printf("%s", yytext); } };
 }
 
 {ONE_DOC_COM_START} {
     BEGIN(ONE_DOC_COM);
+    if(DOCS) { printf("%s", yytext); }
 }
 
 <ONE_DOC_COM>{
-    "\\"[ \t]*\n         ;
-    .                   ;
+    "\\"[ \t]*\n        { if(DOCS) { printf("%s", yytext); } } ;
+    .                 { if(DOCS) { printf("%s", yytext); } };
     \n              { ECHO; BEGIN(0); }
 }
 
@@ -86,8 +95,11 @@ int yywrap() {
     return 1;
 }
 
-main()
+main(int argc, char* argv[])
 {
+    if( strcmp(argv[1], "--docs") == 0 )  {
+        DOCS = 1;
+    }
     return yylex();
 }
 

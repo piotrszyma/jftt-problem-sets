@@ -473,8 +473,6 @@ char *yytext;
 
 // Stack implementation
 
-
-
 int stack[STACK_SIZE];
 int stackPtr = -1;
 
@@ -510,10 +508,7 @@ int pop() {
     }
 }
 
-// LEX initializer
-// a - b = -b + a
 int yylex();
-int yywrap();
 
 int UNKNOWN = FALSE;
 int numberCtr = 0;
@@ -543,7 +538,7 @@ int countSolution() {
 
 
 
-#line 547 "lex.yy.c"
+#line 542 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -761,9 +756,9 @@ YY_DECL
 		}
 
 	{
-#line 97 "lexer.lex"
+#line 92 "lexer.lex"
 
-#line 767 "lex.yy.c"
+#line 762 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -822,7 +817,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 98 "lexer.lex"
+#line 93 "lexer.lex"
 {
                  push(atoi(yytext));
                  numberCtr++;
@@ -830,7 +825,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 102 "lexer.lex"
+#line 97 "lexer.lex"
 {
                 push(pop() + pop());
                 operatorCtr++;
@@ -838,9 +833,8 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 106 "lexer.lex"
+#line 101 "lexer.lex"
 {
-                //TODO: make it work better
                 int fNumber = pop();
                 push(pop() - fNumber);
                 operatorCtr++;
@@ -848,7 +842,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 112 "lexer.lex"
+#line 106 "lexer.lex"
 {
                 operatorCtr++;
                 push(pop() * pop());
@@ -856,7 +850,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 116 "lexer.lex"
+#line 110 "lexer.lex"
 {
 
                 int fNumber = pop();
@@ -871,7 +865,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 127 "lexer.lex"
+#line 121 "lexer.lex"
 {
                 operatorCtr++;
                 int fNumber = pop();
@@ -885,7 +879,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 137 "lexer.lex"
+#line 131 "lexer.lex"
 {
                 operatorCtr++;
                 int fNumber = pop();
@@ -894,20 +888,20 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 142 "lexer.lex"
+#line 136 "lexer.lex"
 ;
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 143 "lexer.lex"
+#line 137 "lexer.lex"
 {
                 countSolution();
             }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 146 "lexer.lex"
+#line 140 "lexer.lex"
 {
                 printf("Error: unknown symbol \"%s\"\n", yytext);
                 UNKNOWN = TRUE;
@@ -915,10 +909,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 150 "lexer.lex"
+#line 144 "lexer.lex"
 ECHO;
 	YY_BREAK
-#line 922 "lex.yy.c"
+#line 916 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1919,17 +1913,12 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 150 "lexer.lex"
+#line 144 "lexer.lex"
 
 
-
-int yywrap() {
-
-}
 
 main()
 {
-    //TODO: fix this
     return yylex();
 }
 

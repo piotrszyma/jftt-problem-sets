@@ -97,6 +97,9 @@ int yywrap() {
 
 main(int argc, char* argv[])
 {
+    if (argc != 2 ) {
+        return yylex();
+    }
     if( strcmp(argv[1], "--docs") == 0 )  {
         DOCS = 1;
     }

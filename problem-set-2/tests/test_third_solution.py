@@ -31,3 +31,7 @@ class TestThirdSolution(LexerTestCase):
 
         response = self.runParser("\%%%%%%comment  \n abcdef\n")
         self.assertEqual(response, b'\%\n abcdef\n')
+
+    def test_should_interpret_not_escaped(self):
+        response = self.runParser("\\%  \n abcdef\n")
+        self.assertEqual(response, b'\\%  \n abcdef\n')

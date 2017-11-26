@@ -3,12 +3,10 @@
 
 extern int yylval;
 %}
-COMMENT ^#.*(\\\n)+.*\n
-MULTILINE (\\\n)
+COMMENT ^#.*(\\\n)*.*\n
 
 %%
 {COMMENT}   ;
-{MULTILINE} ;
 [0-9]+ {yylval=atoi(yytext); return NUM;}
 
 \n      return EOF;

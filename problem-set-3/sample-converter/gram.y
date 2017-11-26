@@ -70,7 +70,7 @@ E:  E '+' E { printf("+ ");  $$ = ($1 + $3); }
     |   E '^' E {printf("^ "); $$ = modPow($1, $3); }
     |   E '/' E {printf("/ "); $$ = modDiv($1, $3); }    
     |   '-' NE %prec NEGATIVE { $$ = -$2; }
-    |   NUM     { printf("%d ",  yylval); $$ = $1; }
+    |   NUM     { printf("%d ",  mod(yylval)); $$ = $1; }
     |   '(' E ')' { $$ = $2; }
     ;
 

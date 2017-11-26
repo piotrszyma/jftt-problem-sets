@@ -351,8 +351,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 6
-#define YY_END_OF_BUFFER 7
+#define YY_NUM_RULES 5
+#define YY_END_OF_BUFFER 6
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -360,10 +360,10 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[19] =
+static const flex_int16_t yy_accept[16] =
     {   0,
-        0,    0,    7,    5,    4,    3,    5,    5,    3,    2,
-        0,    0,    0,    0,    1,    0,    1,    0
+        0,    0,    6,    4,    3,    2,    4,    2,    0,    1,
+        0,    1,    0,    0,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -400,35 +400,35 @@ static const YY_CHAR yy_ec[256] =
 
 static const YY_CHAR yy_meta[6] =
     {   0,
-        1,    2,    1,    3,    1
+        1,    1,    1,    2,    1
     } ;
 
-static const flex_int16_t yy_base[23] =
+static const flex_int16_t yy_base[20] =
     {   0,
-        0,   19,   21,   23,   23,    0,    0,   15,    0,   23,
-       14,   16,    4,   15,   23,   14,    6,   23,    5,    5,
-        9,   12
+        0,    4,   16,   28,   28,    0,    8,    0,   12,   28,
+       13,   16,   10,    9,   28,   21,    1,   23,   25
     } ;
 
-static const flex_int16_t yy_def[23] =
+static const flex_int16_t yy_def[20] =
     {   0,
-       18,    1,   18,   18,   18,   19,   20,   21,   19,   18,
-       21,   11,   22,   22,   18,   22,   14,    0,   18,   18,
-       18,   18
+       16,   15,   15,   15,   15,   17,   18,   17,   18,   15,
+        9,   19,   19,   19,    0,   15,   15,   15,   15
     } ;
 
-static const flex_int16_t yy_nxt[29] =
+static const flex_int16_t yy_nxt[34] =
     {   0,
-        4,    5,    4,    6,    7,   15,   10,    9,   16,   11,
-       16,   11,   14,   14,   14,   17,   15,   13,   12,   12,
-       18,    8,    3,   18,   18,   18,   18,   18
+       15,    5,    8,    6,    4,    5,    7,    6,    4,   10,
+       12,   10,   11,   10,   12,   15,   11,   10,   15,   15,
+       14,    4,    4,    9,    9,   13,   13,    3,   15,   15,
+       15,   15,   15
     } ;
 
-static const flex_int16_t yy_chk[29] =
+static const flex_int16_t yy_chk[34] =
     {   0,
-        1,    1,    1,    1,    1,   13,   20,   19,   13,   21,
-       17,   21,   22,   22,   22,   16,   14,   12,   11,    8,
-        3,    2,   18,   18,   18,   18,   18,   18
+        0,    1,   17,    1,    2,    2,    2,    2,    2,    7,
+       14,   13,    7,    9,   11,    3,    9,   12,    0,    0,
+       12,   16,   16,   18,   18,   19,   19,   15,   15,   15,
+       15,   15,   15
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -671,7 +671,7 @@ YY_DECL
 		}
 
 	{
-#line 9 "gram.l"
+#line 8 "gram.l"
 
 #line 677 "lex.yy.c"
 
@@ -701,13 +701,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 19 )
+				if ( yy_current_state >= 16 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 23 );
+		while ( yy_base[yy_current_state] != 28 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -734,37 +734,31 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 10 "gram.l"
+#line 9 "gram.l"
 ;
 	YY_BREAK
 case 2:
-/* rule 2 can match eol */
 YY_RULE_SETUP
-#line 11 "gram.l"
-;
-	YY_BREAK
-case 3:
-YY_RULE_SETUP
-#line 12 "gram.l"
+#line 10 "gram.l"
 {yylval=atoi(yytext); return NUM;}
 	YY_BREAK
-case 4:
-/* rule 4 can match eol */
+case 3:
+/* rule 3 can match eol */
 YY_RULE_SETUP
-#line 14 "gram.l"
+#line 12 "gram.l"
 return EOF;
+	YY_BREAK
+case 4:
+YY_RULE_SETUP
+#line 13 "gram.l"
+return *yytext;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 15 "gram.l"
-return *yytext;
-	YY_BREAK
-case 6:
-YY_RULE_SETUP
-#line 16 "gram.l"
+#line 14 "gram.l"
 ECHO;
 	YY_BREAK
-#line 768 "lex.yy.c"
+#line 762 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1062,7 +1056,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 19 )
+			if ( yy_current_state >= 16 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1090,11 +1084,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 19 )
+		if ( yy_current_state >= 16 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 18);
+	yy_is_jam = (yy_current_state == 15);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1772,7 +1766,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 16 "gram.l"
+#line 14 "gram.l"
 
 
 int yywrap(){

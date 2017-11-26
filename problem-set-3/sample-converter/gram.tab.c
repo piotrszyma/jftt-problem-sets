@@ -1301,7 +1301,7 @@ yyreduce:
 
   case 10:
 #line 73 "gram.y" /* yacc.c:1646  */
-    { printf("%d ",  yylval); (yyval) = (yyvsp[0]); }
+    { printf("%d ",  mod(yylval)); (yyval) = (yyvsp[0]); }
 #line 1306 "gram.tab.c" /* yacc.c:1646  */
     break;
 
